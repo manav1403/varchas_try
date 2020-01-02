@@ -239,7 +239,7 @@
 
         this.interval = setInterval(function () {
             self.totalSeconds += 1;
-            $.post('./game',{'type':"clock",'data':self.totalSeconds,'id': $("#id").html(),'csrfmiddlewaretoken':a)
+            $.post('./game',{'type':"clock",'data':self.totalSeconds,'id': $("#id").html(),'csrfmiddlewaretoken':a})
             $("#timer").text(Math.floor(self.totalSeconds / 60)+":"+Math.floor(self.totalSeconds % 60))
         }, 1000);
     },
@@ -300,7 +300,7 @@
     var overs=$("overs"+team).text();
     $("#loader"+team).show();
     $.ajax({
-                data: {'csrfmiddlewaretoken':"coBN27qxFjhgQGaZnq76pcqlVbx3qZSbmE9y1OXff90LJ8ttnlEjUFJosfwWdqWe",
+                data: {'csrfmiddlewaretoken':a,
                        'request': type,
                        'id': $("#id").html(),
                        'value': val,
