@@ -19,8 +19,8 @@
             <div class="bg-light text-center">{{data.game_name}}</div><br>
             <div class="text-center">
                 <h5>{{data.team1}}<br><br>VS<br><br>{{data.team2}}<br><br></h5>
-                <h5><span id="score1_{{data.assignment_code}}">0</span>&nbsp;-&nbsp;<span id="score2_{{data.assignment_code}}">0</span></h5>
-                <h6>VENUE:&nbsp; {{data.match_place}}&nbsp;on &nbsp;{{data.match_date}}&nbsp;{{data.match_time}} </h6><br>
+                <h5><span id="score1_{{data.game_id}}">0</span>&nbsp;-&nbsp;<span id="score2_{{data.game_id}}">0</span></h5>
+                <h6>VENUE:&nbsp; {{data.match_place}}&nbsp;on &nbsp;{{data.game_date}}&nbsp;{{data.game_time}} </h6><br>
             </div>
         </div>
         {% endfor %}
