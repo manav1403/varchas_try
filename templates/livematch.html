@@ -9,10 +9,12 @@
     <script src="{% static 'vendor/jquery/jquery-3.2.1.min.js'%}"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css'%}">
     <script type="text/javascript">
+    {% csrf_token %}
+    a=$("input[name='csrfmiddlewaretoken']").val()
       setInterval(function () {
             
             $.ajax({
-                data: {'csrfmiddlewaretoken':"coBN27qxFjhgQGaZnq76pcqlVbx3qZSbmE9y1OXff90LJ8ttnlEjUFJosfwWdqWe"},
+                data: {'csrfmiddlewaretoken':a},
                 type: 'POST',
                 url: '/livematch'
             })
