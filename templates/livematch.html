@@ -8,32 +8,7 @@
     <title>live match</title>
     <script src="{% static 'vendor/jquery/jquery-3.2.1.min.js'%}"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css'%}">
-    <script type="text/javascript">
-    {% csrf_token %}
-    a=$("input[name='csrfmiddlewaretoken']").val()
-      setInterval(function () {
-            
-            $.ajax({
-                data: {'csrfmiddlewaretoken':a},
-                type: 'POST',
-                url: '/livematch'
-            })
-                .done(function (data) {
-                    
-                    if (data.length == {{ldaw}}) {
-                        for (j in data) {
-                            $('#score1_' + data[j]['id']).html(data[j]['score1']);
-                            
-                            $('#score2_' + data[j]['id']).html(data[j]['score2']);
-                        }
-                    } else {
-                        console.log('Not Matching');
-                        location.reload();
-                    }
-                });
-
-        }, 10000);  
-    </script>
+    
 </head>
 <body>
     <div class="row">
@@ -49,5 +24,32 @@
             </div>
         </div>
         {% endfor %}
+        {% csrf_token %}
+        <script type="text/javascript">
+            
+            a=$("input[name='csrfmiddlewaretoken']").val()
+              setInterval(function () {
+                    
+                    $.ajax({
+                        data: {'csrfmiddlewaretoken':a},
+                        type: 'POST',
+                        url: '/livematch'
+                    })
+                        .done(function (data) {
+                            
+                            if (data.length == {{ldaw}}) {
+                                for (j in data) {
+                                    $('#score1_' + data[j]['id']).html(data[j]['score1']);
+                                    
+                                    $('#score2_' + data[j]['id']).html(data[j]['score2']);
+                                }
+                            } else {
+                                console.log('Not Matching');
+                                location.reload();
+                            }
+                        });
+        
+                }, 10000);  
+            </script>
 </body>
 </html>
