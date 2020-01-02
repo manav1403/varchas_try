@@ -5,6 +5,6 @@ urlpatterns = [
    # path("vol",views.vol_login),
     path("vol/logedin",views.vol_logedin),
     path("vol/game",views.game),
-    path("vol/update",views.update)
-   # path("",views.live),
+    path("vol/update",views.update),
+    path("",views.live),
 ]

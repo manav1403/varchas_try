@@ -54,5 +54,14 @@ def vol_logedin(request):
         ch=game_list.objects.filter(game_id=request.POST['id']).order_by('-id')[0]
         game=match_list.objects.filter(game_id=request.POST['id'])[0]
         return render(request,"games.html",{'c':11,'game':game,'dat':ch})
-    
+
+def live(request):
+    daw = match_list.objects.filter(live_status=True,end_status=False)
+    if(request.method=='POST'):
+        l=[]
+        for  i in daw:
+            obj=game_list.objects.filter(game_id=i.game_id)[0]
+            l.append({'id':i.game_id,'score1':obj.team1_score,'score2':obj.team2_score})
+        return JsonResponse(l,safe=False)
+    return render(request,"livematch.html",{'daw':daw,'ldaw':len(daw)})    
 
