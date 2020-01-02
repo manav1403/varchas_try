@@ -60,7 +60,7 @@ def live(request):
     if(request.method=='POST'):
         l=[]
         for  i in daw:
-            obj=game_list.objects.filter(game_id=i.game_id)[0]
+            obj=game_list.objects.filter(game_id=i.game_id).order_by('-id')[0]
             l.append({'id':i.game_id,'score1':obj.team1_score,'score2':obj.team2_score})
         return JsonResponse(l,safe=False)
     return render(request,"livematch.html",{'daw':daw,'ldaw':len(daw)})    
