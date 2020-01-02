@@ -40,7 +40,17 @@ def update(request):
             obj=game_list(game_id=ch.game_id,team1_score=ch.team1_score,team2_score=ch.team2_score)
             obj.save()
             return JsonResponse({'status':"success",'score':a})
+        if(p['request'] == '2'):
+            ch=game_list.objects.filter(game_id=p['id']).order_by('-id')[0]
+            ch.delete()
+            ch=game_list.objects.filter(game_id=p['id']).order_by('-id')[0]
+            if(p['team']=='1'):
+             a=ch.team1_score
+            if(p['team']=='2'):
+             a=ch.team2_score
+            return JsonResponse({'status':"success",'score':a})
 
+            
 def vol_logedin(request):
     User=request.user
     
