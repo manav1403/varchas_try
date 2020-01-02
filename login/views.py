@@ -65,3 +65,18 @@ def live(request):
         return JsonResponse(l,safe=False)
     return render(request,"livematch.html",{'daw':daw,'ldaw':len(daw)})    
 
+
+def login(request):
+     if(request.method=='POST'):
+      username=request.POST['username']
+      password=request.POST['pass']
+      user=auth.authenticate(username=username,password=password)
+      
+      if(user is not None):
+         auth.login(request,user)
+         return redirect('/login/vol/logedin')
+      else:
+            return render(request,'adminlogin.html',{'error':'True'})
+     else:
+          return render(request,'adminlogin.html')
+
