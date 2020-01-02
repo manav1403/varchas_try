@@ -50,7 +50,10 @@
             };
             call();
             console.log("l")
-            setInterval(call(),10000);  
+            setInterval(() => {
+                call();
+                
+            }, 10000);
             </script>
 </body>
 </html>
