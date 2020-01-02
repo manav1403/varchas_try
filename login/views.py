@@ -81,5 +81,5 @@ def login(request):
           return render(request,'adminlogin.html')
 
 def logout(request):
-    auth.logout(request,request.user)
+    auth.logout(request)
     return redirect('login/vol')

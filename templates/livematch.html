@@ -30,7 +30,7 @@
                 $.ajax({
                         data: {'csrfmiddlewaretoken':a},
                         type: 'POST',
-                        url: '/livematch'
+                        url: '/livematch',
                     })
                         .done(function (data) {
                             
@@ -44,9 +44,10 @@
                                 console.log('Not Matching');
                                 location.reload();
                             }
-            }}
-            call()
-            a=$("input[name='csrfmiddlewaretoken']").val()
+            });
+            }
+            call();
+            a=$("input[name='csrfmiddlewaretoken']").val();
               setInterval(call(), 10000);  
             </script>
 </body>
