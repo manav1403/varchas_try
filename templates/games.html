@@ -223,9 +223,10 @@
 </body>
 </html>
 <script src="{% static 'vendor\jquery\jquery-3.2.1.min.js'%}"></script>
-
+{% csrf_token %}
 
 <script>
+ a=$(input[name='csrfmiddlewaretoken']).val()
  $('#c_button').hide();
  $(".loader").hide();
  $(".btn").removeAttr("disabled");
@@ -238,7 +239,7 @@
 
         this.interval = setInterval(function () {
             self.totalSeconds += 1;
-            $.post('./game',{'type':"clock",'data':self.totalSeconds,'id': $("#id").html(),'csrfmiddlewaretoken':"coBN27qxFjhgQGaZnq76pcqlVbx3qZSbmE9y1OXff90LJ8ttnlEjUFJosfwWdqWe"})
+            $.post('./game',{'type':"clock",'data':self.totalSeconds,'id': $("#id").html(),'csrfmiddlewaretoken':a)
             $("#timer").text(Math.floor(self.totalSeconds / 60)+":"+Math.floor(self.totalSeconds % 60))
         }, 1000);
     },
@@ -258,7 +259,7 @@
      if ($("#main").html() == "START GAME") {
         
         $.ajax({
-                data: {'csrfmiddlewaretoken':"coBN27qxFjhgQGaZnq76pcqlVbx3qZSbmE9y1OXff90LJ8ttnlEjUFJosfwWdqWe",
+                data: {'csrfmiddlewaretoken':a,
                        'type': "start",
                        'id': $("#id").html(),
                     },
