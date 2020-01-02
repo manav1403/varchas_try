@@ -1,0 +1,51 @@
+<!DOCTYPE html><!--pass dat type game--> 
+<html lang="en">
+<head>
+    {% load static%}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>admin portal</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css'%}">
+   
+</head>
+<body>
+    
+    <div class="bg-primary text-center" style="padding: 10px;"><h3>VARCHAS ADMIN PORTAL</h3></div>
+      <div class="container"><br>
+      <div class="row bg-light"><br>
+         <div class="col-md-4"><h6>USER:&nbsp;{{dat.username}}</h6></div>
+         <div class="col-md-4"><h6>USER TYPE:&nbsp;{{type}}</h6></div>
+         <div class="col-md-4"><h6><a href="adminlogin">LOGOUT</a></h6></div>
+         
+      </div><br><br><br>
+         
+        <div class="row">
+            {% for game in assign%}
+            <div class="col-md-4 border border-primary" style="padding: 0px;">
+                <br>
+                <div class="text-center"><h4>YOUR ASSIGNMENT<br>({{game.game_id}})</h4></div><br>
+                <div class="bg-light text-center">{{game.game_name}}</div><br>
+                <div class="text-center">
+                    <h5>{{game.team1}}<br><br>VS<br><br>{{game.team2}}<br><br></h5>
+                    <h6>VENUE:&nbsp; {{game.match_place}}&nbsp;on &nbsp;{{game.match_date}}&nbsp;{{game.match_time}} </h6><br>
+                </div>
+                <div class="bg-light text-center">
+                    {%if game.end_status == False%}
+                     MATCH YET TO START<br><br>
+                      <form action="./logedin" method="POST">{% csrf_token %}<button type="submit" class="btn btn-primary" name="id"value="{{game.game_id}}">GO TO GAME</button></form><br><br>
+                   
+                    {%else%}
+                    MATCH IS ENDED
+                    <br><br>
+                    
+                    {%endif%}
+                </div>
+                {%endfor%}
+            </div> 
+
+        
+    </div> 
+
+</body>
+</html>

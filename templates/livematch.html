@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static%}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>live match</title>
+    <script src="{% static 'vendor/jquery/jquery-3.2.1.min.js'%}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css'%}">
+    <script type="text/javascript">
+      setInterval(function () {
+            
+            $.ajax({
+                data: {'csrfmiddlewaretoken':"coBN27qxFjhgQGaZnq76pcqlVbx3qZSbmE9y1OXff90LJ8ttnlEjUFJosfwWdqWe"},
+                type: 'POST',
+                url: '/livematch'
+            })
+                .done(function (data) {
+                    
+                    if (data.length == {{ldaw}}) {
+                        for (j in data) {
+                            $('#score1_' + data[j]['id']).html(data[j]['score1']);
+                            
+                            $('#score2_' + data[j]['id']).html(data[j]['score2']);
+                        }
+                    } else {
+                        console.log('Not Matching');
+                        location.reload();
+                    }
+                });
+
+        }, 10000);  
+    </script>
+</head>
+<body>
+    <div class="row">
+        {% for data in daw %}
+        <div class="col-md-4 border border-primary" style="padding: 0px;">
+            <br>
+            <div class="text-center"><h4>LIVE MATCH<br>({{data.assignment_code}})</h4></div><br>
+            <div class="bg-light text-center">{{data.game_name}}</div><br>
+            <div class="text-center">
+                <h5>{{data.team1}}<br><br>VS<br><br>{{data.team2}}<br><br></h5>
+                <h5><span id="score1_{{data.assignment_code}}">0</span>&nbsp;-&nbsp;<span id="score2_{{data.assignment_code}}">0</span></h5>
+                <h6>VENUE:&nbsp; {{data.match_place}}&nbsp;on &nbsp;{{data.match_date}}&nbsp;{{data.match_time}} </h6><br>
+            </div>
+        </div>
+        {% endfor %}
+</body>
+</html>
