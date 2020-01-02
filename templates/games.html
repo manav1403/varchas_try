@@ -226,7 +226,7 @@
 {% csrf_token %}
 
 <script>
- a=$(input[name='csrfmiddlewaretoken']).val()
+ a=$("input[name='csrfmiddlewaretoken']").val()
  $('#c_button').hide();
  $(".loader").hide();
  $(".btn").removeAttr("disabled");
