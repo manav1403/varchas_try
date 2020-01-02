@@ -80,3 +80,6 @@ def login(request):
      else:
           return render(request,'adminlogin.html')
 
+def logout(request):
+    auth.logout(request,request.user)
+    return redirect('login/vol')

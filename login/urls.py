@@ -7,4 +7,5 @@ urlpatterns = [
     path("vol/game",views.game),
     path("vol/update",views.update),
     path("",views.live),
+    path("vol/logout",views.logout),
 ]
