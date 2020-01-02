@@ -34,7 +34,7 @@
                 <div class="bg-light text-center">
                     {%if game.end_status == False%}
                      MATCH YET TO START<br><br>
-                      <form action="./logedin" method="POST">{% csrf_token %}<button type="submit" class="btn btn-primary" name="id"value="{{game.game_id}}">GO TO GAME</button></form><br><br>
+                      <form action="login/vol/logedin" method="POST">{% csrf_token %}<button type="submit" class="btn btn-primary" name="id"value="{{game.game_id}}">GO TO GAME</button></form><br><br>
                    
                     {%else%}
                     MATCH IS ENDED
