@@ -26,8 +26,7 @@
         {% endfor %}
         {% csrf_token %}
         <script type="text/javascript">
-                    a=$("input[name='csrfmiddlewaretoken']").val();
-
+             a=$("input[name='csrfmiddlewaretoken']").val();
             function call(){
                 $.ajax({
                         data: {'csrfmiddlewaretoken':a},
@@ -49,7 +48,7 @@
             })
             }
             call();
-              setInterval(call(), 10000);  
+            setInterval(call(), 10000);  
             </script>
 </body>
 </html>
