@@ -26,11 +26,13 @@
         {% endfor %}
         {% csrf_token %}
         <script type="text/javascript">
+                    a=$("input[name='csrfmiddlewaretoken']").val();
+
             function call(){
                 $.ajax({
                         data: {'csrfmiddlewaretoken':a},
                         type: 'POST',
-                        url: '/livematch',
+                        url: '/livematch'
                     })
                         .done(function (data) {
                             
@@ -44,10 +46,9 @@
                                 console.log('Not Matching');
                                 location.reload();
                             }
-            });
+            })
             }
             call();
-            a=$("input[name='csrfmiddlewaretoken']").val();
               setInterval(call(), 10000);  
             </script>
 </body>
