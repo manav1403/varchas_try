@@ -28,6 +28,7 @@
         <script type="text/javascript">
              a=$("input[name='csrfmiddlewaretoken']").val();
             function call(){
+                console.log("ll")
                 $.ajax({
                         data: {'csrfmiddlewaretoken':a},
                         type: 'POST',
@@ -48,7 +49,8 @@
             });
             };
             call();
-            setInterval(call(), 10000);  
+            console.log("l")
+            setInterval(call(),10000);  
             </script>
 </body>
 </html>
