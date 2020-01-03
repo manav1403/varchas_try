@@ -23,6 +23,7 @@ class match_list(models.Model):
     final_team2=models.CharField(max_length=20,blank=True)
     invisble_comments=models.CharField(max_length=100,blank=True,null=True)
 
+
 class team_data(models.Model): #list of all teams
     team_name=models.CharField(max_length=100)
     team_game=models.CharField(max_length=100)
@@ -35,5 +36,6 @@ class game_list(models.Model):
     overs_1=models.DecimalField(default=0.0,max_digits=4,decimal_places=2)
     team2_score=models.CharField(max_length=40,default="0")
     overs_2=models.DecimalField(default=0.0,max_digits=4,decimal_places=2)
+    comments=models.CharField(max_length=40)
  
 
