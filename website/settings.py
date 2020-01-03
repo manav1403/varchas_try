@@ -75,16 +75,14 @@ WSGI_APPLICATION = 'website.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'varchas',
-        'USER': 'postgres',
-        'PASSWORD':'Manav@5653',
-        'HOST': '127.0.0.1:53016',
-    }
-}
+import dj_database_url
 
+DATABASE_URL: "postgres://maduwhfhzxzfrw:05ec7e15b4ee109d24b245a9dd69c07e0c69251a30e58901e19ccb70e2a66708@ec2-174-129-255-57.compute-1.amazonaws.com:5432/d75f5ob0rsrabj"
+
+# Parse database configuration from $DATABASE_URL
+DATABASES = {
+    'default': dj_database_url.config(default=DATABASE_URL)
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -128,4 +126,3 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'static')
 ]
 STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
-#django_heroku.settings(locals())
