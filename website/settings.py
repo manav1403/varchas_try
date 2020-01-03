@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'website.wsgi.application'
 
 import dj_database_url
 
-DATABASE_URL: "postgres://maduwhfhzxzfrw:05ec7e15b4ee109d24b245a9dd69c07e0c69251a30e58901e19ccb70e2a66708@ec2-174-129-255-57.compute-1.amazonaws.com:5432/d75f5ob0rsrabj"
+DATABASE_URL = "postgres://maduwhfhzxzfrw:05ec7e15b4ee109d24b245a9dd69c07e0c69251a30e58901e19ccb70e2a66708@ec2-174-129-255-57.compute-1.amazonaws.com:5432/d75f5ob0rsrabj"
 
 # Parse database configuration from $DATABASE_URL
 DATABASES = {
