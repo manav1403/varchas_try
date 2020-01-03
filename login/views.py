@@ -61,10 +61,10 @@ def vol_logedin(request):
     if(User.is_authenticated and request.method=='POST'):
         
         c=int(request.POST['id'])//10000
-        ch=game_list.objects.filter(game_id=request.POST['id']).order_by('-id')[0]
+        ch=game_list.objects.filter(game_id=request.POST['id']).order_by('-id')
         dat=0
         if(ch):
-            dat=ch
+            dat=ch[0]
         game=match_list.objects.filter(game_id=request.POST['id'])[0]
         return render(request,"games.html",{'c':11,'game':game,'dat':dat})
 
