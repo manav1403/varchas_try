@@ -50,7 +50,7 @@ def update(request):
              a=ch.team2_score
             return JsonResponse({'status':"success",'score':a})
 
-            
+
 def vol_logedin(request):
     User=request.user
     
@@ -62,8 +62,11 @@ def vol_logedin(request):
         
         c=int(request.POST['id'])//10000
         ch=game_list.objects.filter(game_id=request.POST['id']).order_by('-id')[0]
+        dat=0
+        if(ch):
+            dat=ch
         game=match_list.objects.filter(game_id=request.POST['id'])[0]
-        return render(request,"games.html",{'c':11,'game':game,'dat':ch})
+        return render(request,"games.html",{'c':11,'game':game,'dat':dat})
 
 def live(request):
     daw = match_list.objects.filter(live_status=True,end_status=False)
