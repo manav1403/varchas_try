@@ -7,6 +7,7 @@
     <title>criket portal</title>
     {% load static%}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    
 </head>
 <body>
     <div class="bg-primary text-center" style="padding: 10px;"><h3>VARCHAS ADMIN PORTAL</h3></div>
@@ -30,19 +31,53 @@
          <br><br><br><br>
          
          <div style="position: relative; width: 100%;">
-         <button id="main" style="position: relative;left: 20%;">START GAME</button>
+         <button id="main" style="position: relative;left: 20%;" data-toggle="modal" data-target="#exampleModal">START GAME</button>
          <h2 id ="timer"style="position: relative;left: 36%;display: inline;background:palegoldenrod; padding: 5px;">00:00</h2>
          <button id="c_button" style="position: relative;left: 60%;">RESUME</button>
          </div><br>
     </div>
     <br><br>
+    <!--end gane modal-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form action ="/login/vol/game" method ="POST">
+                  <input type="hidden" value="end" name='type'>
+                  <input type="hidden" value="{{game.game_id}}" name='id'>
+                  {% csrf_token %}
+                  <h5>
+                      SELECT THE WINNER&nbsp;&nbsp;
+                      <select name="winner">
+                      <option>{{game.team1}}</option>
+                      <option>{{game.team2}}</option>
+                  </select></h5><BR>
+              ending&nbsp;comments::&nbsp;<input name="comments" value=" "><br><br>
+              <small class="text-alert">*before ending make sure that all scores are correct<br>
+                **for any problem contact admin</small>
+            </div>
+            <div class="modal-footer">
+                
+              <button type="button" class="btn-secondary btn" data-dismiss="modal">CLOSE</button>
+              <input type="submit" class="btn-primary btn" value ="SURE END">
+            </div>
+        </form>
+          </div>
+        </div>
+      </div>
     <!--GAME CRICKET-->
     {% if c == 10 %}
     <div class="bg-light row" style="position: relative;"><br>
       <div class="col-md-6 border border-primary text-center">
           <br><br>
           <h5>{{game.team1}}<br><br>
-            OVER:::<span id ="overs1">{{dat.over_1}}<br><br></span>
+            OVER:::<span id ="overs1">{{dat.overs_1}}</span><br><br>
             ADD TO SCORE<br><br>
             RUNS:::
             <select id ="runs_data1">
@@ -63,9 +98,9 @@
             </select>
             </h5>
             <br>
-            <button class="btn btn-primary" id = "11">ADD</button>
+            <button class="btn btn-primary tr" id = "11">ADD</button>
           &nbsp;&nbsp;
-          <button  class="btn btn-primary"id="12">UNDO</button><br>
+          <button  class="btn btn-primary tr"id="12">UNDO</button><br>
           <span id="loader_c1" class="loader">
             <div class="spinner-border spinner-grow-sm" role="status">
                 <span class="sr-only">Loading...</span>
@@ -86,7 +121,7 @@
       <div class="col-md-6 border border-primary text-center">
           <br><br>
         <h5>{{game.team2}}<br><br>
-          OVER:::<span id ="overs2">{{dat.over_2}}<br><br></span>
+          OVER:::<span id ="overs2">{{dat.overs_2}}</span><br><br>
           ADD TO SCORE<br><br>
           RUNS:::
           <select id ="runs_data2">
@@ -109,9 +144,9 @@
 
         </h5>
         
-        <br><button class="btn btn-primary" id = "c_add2">ADD</button>
+        <br><button class="btn btn-primary tr" id = "21">ADD</button>
           &nbsp;&nbsp;
-          <button  class="btn btn-primary"id="c_undo2">UNDO</button><br>
+          <button  class="btn btn-primary tr"id="22">UNDO</button><br>
           <span id="loader_c2" class="loader">
             <div class="spinner-border spinner-grow-sm" role="status">
                 <span class="sr-only">Loading...</span>
@@ -154,9 +189,9 @@
            
             </select>
              </h5>
-             <br><button class="btn btn-primary" id = "11">ADD</button>
+             <br><button class="btn btn-primary tr" id = "11">ADD</button>
           &nbsp;&nbsp;
-          <button  class="btn btn-primary"id="12">UNDO</button><br>
+          <button  class="btn btn-primary tr"id="12">UNDO</button><br>
           <span id="loader_b1" class="loader">
             <div class="spinner-border spinner-grow-sm" role="status">
                 <span class="sr-only">Loading...</span>
@@ -194,9 +229,9 @@
           </select>
           
           </h5>
-          <br><button class="btn btn-primary" id = "21">ADD</button>
+          <br><button class="btn btn-primary tr" id = "21">ADD</button>
           &nbsp;&nbsp;
-          <button  class="btn btn-primary"id="22">UNDO</button><br>
+          <button  class="btn btn-primary tr"id="22">UNDO</button><br>
           <span id="loader_b2" class="loader">
             <div class="spinner-border spinner-grow-sm" role="status">
                 <span class="sr-only">Loading...</span>
@@ -224,12 +259,16 @@
 </html>
 <script src="{% static 'vendor\jquery\jquery-3.2.1.min.js'%}"></script>
 {% csrf_token %}
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script>
- a=$("input[name='csrfmiddlewaretoken']").val()
+overs=parseFloat($("#overs1").text());if((overs)%10==6){overs=overs+4}else{overs=overs+1};$("#overs1").text(overs/10);
+overs=parseFloat($("#overs2").text());if((overs)%10==6){overs=overs+4}else{overs=overs+1};$("#overs2").text(overs/10);
+
+ a=$("input[name='csrfmiddlewaretoken']").val();
  $('#c_button').hide();
  $(".loader").hide();
- $(".btn").removeAttr("disabled");
+ $(".tr").removeAttr("disabled");
  starts = parseInt($("#ac_start_time").html());
      var Clock = {
     totalSeconds: starts,
@@ -266,7 +305,7 @@
                 type: 'POST',
                 url: './game'
             });
-     $(".btn").removeAttr("disabled"); 
+     $(".tr").removeAttr("disabled"); 
      $("#main").text("END GAME");
      Clock.start();
      $('#c_button').html("PAUSE");
@@ -279,7 +318,7 @@
  });
  console.log($("#live_status").html());
  if($("#live_status").html()== 'True'){
-    $(".btn").removeAttr("disabled"); 
+    $(".tr").removeAttr("disabled"); 
      $("#main").text("END GAME")
      $("#timer").text(Math.floor(starts/ 60)+":"+Math.floor(starts % 60))
      $('#c_button').show();
@@ -290,22 +329,23 @@
  
 
 
- $(".btn").on("click",function(){
+ $(".tr").on("click",function(){
     
-    $(".btn").attr("disabled","true");
+    $(".tr").attr("disabled","true");
     var team= parseInt(parseInt(this.id)/10)
     var type= parseInt(parseInt(this.id)%10)
     var val = $("#runs_data"+team).val();
-    var wicket=$("wkt"+team).val();
-    var overs=$("overs"+team).text();
-    $("#loader"+team).show();
+    var wicket=$("#wkt"+team).val();
+    var overs=(parseInt($("#overs"+team).text()*10));
+    console.log("dd"+overs);
+    $(".loader").show();
     $.ajax({
                 data: {'csrfmiddlewaretoken':a,
                        'request': type,
                        'id': $("#id").html(),
                        'value': val,
-                       'wkt': wicket,
-                       'over':overs,
+                       'wicket': wicket,
+                       'overs':overs,
                        'team': team,
             
             },
@@ -315,14 +355,19 @@
                 .done(function (data) {
                     if (data['status']=="success") {
                         $("#score"+team).text(data['score']);
-                        overs=parseInt(overs);if((overs*10)%10==6){overs=overs+0.4}else{overs=overs+0.1};$("overs"+team).text(overs)
+                        console.log(data['overs']);
+                        overs=parseInt(data['overs']);if((overs)%10==6){overs=overs+4}else{overs=overs+1};$("#overs"+team).text(overs/10);
+                        $(".loader").hide();
+                        $(".tr").removeAttr("disabled");            
+
                     }
                     else{
                         alert("update unsuccessfull try again");
+                        $(".loader").hide();
+                        $(".tr").removeAttr("disabled");   
                     }
                 });
-    $("#loader"+team).hide();
-    $(".btn").removeAttr("disabled");            
+    
  });
 
 </script>
