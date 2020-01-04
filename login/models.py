@@ -36,6 +36,7 @@ class game_list(models.Model):
     overs_1=models.DecimalField(default=0.0,max_digits=4,decimal_places=2)
     team2_score=models.CharField(max_length=40,default="0")
     overs_2=models.DecimalField(default=0.0,max_digits=4,decimal_places=2)
+    set=models.IntegerField(default=1)
     comments=models.CharField(max_length=40)
  
 

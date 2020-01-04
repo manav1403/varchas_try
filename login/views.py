@@ -12,7 +12,10 @@ def game(request):
             obj=match_list.objects.filter(game_id=request.POST['id'])[0]
             obj.live_status=True
             obj.save()
-            g=game_list(game_id=request.POST['id'],team1_score="0/0",team2_score="0/0")
+            if (int(request.POST['id'])//10000==10):
+             g=game_list(game_id=request.POST['id'],team1_score="0/0",team2_score="0/0")
+            else:
+                 g=game_list(game_id=request.POST['id'])
             g.save()
         if( request.POST['type']=="clock"):
             obj=match_list.objects.filter(game_id=request.POST['id'])[0]
@@ -37,13 +40,13 @@ def update(request):#for cricket and basketball(10 and 11)
     p=request.POST
     
     if(User.is_authenticated and request.method=='POST'):
-        print(p['request'])
-        if(p['request'] == '1'):
+        
+        if(p['request'] == '1' and int(p['id'])//10000!=12):
             ch=game_list.objects.filter(game_id=p['id']).order_by('-id')[0]
             a=0
             b=0    
             if(p['team']=='1'):
-             print(p['value'])
+             
              team1_score=ch.team1_score.split('/')
              ch.team1_score=str(int(p['value'])+int(team1_score[0]))
              if(int(p['id'])//10000==10):
@@ -56,14 +59,42 @@ def update(request):#for cricket and basketball(10 and 11)
              team2_score=ch.team1_score.split('/')
              ch.team2_score=str(int(p['value'])+int(team2_score[0]))
              if(int(p['id'])//10000==10):
-                ch.team2_score=ch.team2_score+"/"+p['wicket']
+                wkt=str(int(team2_score[1])+int(p['wicket']))
+                ch.team2_score=ch.team2_score+"/"+wkt
                 ch.overs_2=p['overs']
+            
              a=ch.team2_score
              b=ch.overs_2
+            
+
             obj=game_list(game_id=ch.game_id,team1_score=ch.team1_score,team2_score=ch.team2_score,overs_1=ch.overs_1,overs_2=ch.overs_2)
             obj.save()
-            return JsonResponse({'status':"success",'score':a,'overs':b})
-        if(p['request'] == '2'):
+            return JsonResponse({'status':"success",'score1':ch.team1_score,'score2':ch.team2_score,'overs':b})
+
+        if(p['request']=='1' and int(p['id'])//10000==12):
+            ch=game_list.objects.filter(game_id=p['id']).order_by('-id')[0]
+            set1=ch.team1_score.split(' ')
+            set2=ch.team2_score.split(' ')
+            if(p['team']=='1'):
+                n=len(set1)-1
+                set1[n]= int(set1[n])+int(request.POST['value'])
+                ch.team1_score=set1[0]
+                for i in range(1,n+1):
+                   ch.team1_score+=(" "+set1[i])
+                a=ch.team1_score
+                c=ch.set
+            if(p['team']=='2'):
+                n=len(set2)-1
+                set2[n]= int(set2[n])+int(request.POST['value'])
+                ch.team2_score=""
+                for i in range(0,n+1):
+                   ch.team2_score+=(" "+str(set2[i]))
+                a=ch.team2_score
+                c=ch.set
+            obj=game_list(game_id=ch.game_id,team1_score=ch.team1_score,team2_score=ch.team2_score,set=ch.set)
+            obj.save()
+            return JsonResponse({'status':"success",'score1':ch.team1_score,'score2':ch.team2_score,'set':c})
+        if(p['request']=='2'):
             ch=game_list.objects.filter(game_id=p['id']).order_by('-id')[0]
             ch.delete()
             ch=game_list.objects.filter(game_id=p['id']).order_by('-id')[0]
@@ -73,9 +104,17 @@ def update(request):#for cricket and basketball(10 and 11)
             if(p['team']=='2'):
              a=ch.team2_score
              b=ch.overs_2
-            return JsonResponse({'status':"success",'score':a,'overs':b})
-
-
+            c=ch.set
+            return JsonResponse({'status':"success",'score1':ch.team1_score,'score2':ch.team2_score,'overs':b,'set':c})
+        if(p['request'] == '3'):
+            print("oo")
+            ch=game_list.objects.filter(game_id=p['id']).order_by('-id')[0]
+            ch.set=int(ch.set)+1
+            ch.team1_score+=" 0"
+            ch.team2_score+=" 0"
+            obj=game_list(game_id=ch.game_id,team1_score=ch.team1_score,team2_score=ch.team2_score,set=ch.set)
+            obj.save()
+            return JsonResponse({'status':"success",'score1':ch.team1_score,'score2':ch.team2_score,'set':ch.set})
 def vol_logedin(request):
     User=request.user
     
@@ -86,12 +125,16 @@ def vol_logedin(request):
     if(User.is_authenticated and request.method=='POST'):
         
         c=int(request.POST['id'])//10000
-        ch=game_list.objects.filter(game_id=request.POST['id']).order_by('-id')[0]
+        ch=game_list.objects.filter(game_id=request.POST['id']).order_by('-id')
+        dat=0
+        if(len(ch)):
+            dat=ch[0]
         game=match_list.objects.filter(game_id=request.POST['id'])[0]
         
-        return render(request,"games.html",{'c': c,'game':game,'dat':ch})
+        return render(request,"games.html",{'c': c,'game':game,'dat':dat})
 
 def live(request):
+
     daw = match_list.objects.filter(live_status=True,end_status=False)
     if(request.method=='POST'):
         l=[]

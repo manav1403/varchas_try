@@ -251,6 +251,94 @@
     </div>
     {%endif%}
 
+    <!--GAME TYPE VOLLEYBALL-->
+    {% if c == 12 %}
+    <div class="bg-light row" style="position: relative;"><br>
+      <div class="col-md-6 border border-primary text-center">
+          <br><br>
+          <h5>{{game.team1}}<br><br>
+            SET NO.&nbsp;<span id ="set1">{{dat.set}}</span><br> 
+            ADD TO SCORE<br><br>
+            SCORE:::
+            <select id ="runs_data1">
+                <option>0</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+           
+            </select>
+             </h5>
+             <br><button class="btn btn-primary tr" id = "11">ADD</button>
+          &nbsp;&nbsp;
+          <button  class="btn btn-primary tr"id="12">UNDO</button><br><br>
+          <button  class="btn btn-primary tr"id="n_set">NEXT SET</button><br>
+          <span id="loader_b1" class="loader">
+            <div class="spinner-border spinner-grow-sm" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow spinner-grow-sm" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <span>updating</span>
+          </span>
+         
+          <br><br>
+          <h5>SCORE:::&nbsp;<span id ="score1">{{dat.team1_score}}</span></h5>
+          <br>
+          
+
+      </div>
+      <div class="col-md-6 border border-primary text-center">
+          <br><br>
+        <h5>{{game.team2}}<br><br>
+          SET NO.&nbsp;<span id ="set2">{{dat.set}}</span><br>
+          ADD TO SCORE<br><br>
+          SCORE:::
+          <select id ="runs_data2">
+              <option>0</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+          
+          </select>
+          
+          </h5>
+          <br><button class="btn btn-primary tr" id = "21">ADD</button>
+          &nbsp;&nbsp;
+          <button  class="btn btn-primary tr"id="22">UNDO</button><br><br>
+          <button  class="btn btn-primary tr"id="33">NEXT SET</button><br>
+          <span id="loader_b2" class="loader">
+            <div class="spinner-border spinner-grow-sm" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <div class="spinner-grow spinner-grow-sm" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <span>updating</span>
+          </span>
+         
+          <br><br>
+          <h5>SCORE:::&nbsp;<span id ="score2">{{dat.team2_score}}</span></h5>
+          <br>
+        </div>
+     <h1   class="bg-light"style="position: absolute;top: 45%;left:47.5%;">VS</h1>
+
+    </div>
+    {%endif%}
+
+
  </div>
  <!--for ajax-->
  <div id ="ac_start_time" style="visibility: hidden;">{{game.ac_start_time}}</div> 
@@ -326,8 +414,6 @@ overs=parseFloat($("#overs2").text());if((overs)%10==6){overs=overs+4}else{overs
 
 
  }
- 
-
 
  $(".tr").on("click",function(){
     
@@ -354,19 +440,21 @@ overs=parseFloat($("#overs2").text());if((overs)%10==6){overs=overs+4}else{overs
             })
                 .done(function (data) {
                     if (data['status']=="success") {
-                        $("#score"+team).text(data['score']);
-                        console.log(data['overs']);
+                        
+                        $("#set1").text(data['set']);
+                        $("#set2").text(data['set']);
+                        $("#score1").text(data['score1']);$("#score2").text(data['score2']);
                         overs=parseInt(data['overs']);if((overs)%10==6){overs=overs+4}else{overs=overs+1};$("#overs"+team).text(overs/10);
                         $(".loader").hide();
                         $(".tr").removeAttr("disabled");            
 
                     }
-                    else{
+                }).fail(function(){
                         alert("update unsuccessfull try again");
                         $(".loader").hide();
                         $(".tr").removeAttr("disabled");   
                     }
-                });
+                );
     
  });
 
