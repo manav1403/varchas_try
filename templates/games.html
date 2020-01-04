@@ -37,7 +37,8 @@
          </div><br>
     </div>
     <br><br>
-    <!--end gane modal-->
+    <!--endgamee modal-->
+    {% if game.live_status == 'True' %}
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -71,6 +72,7 @@
           </div>
         </div>
       </div>
+      {%endif%}
     <!--GAME CRICKET-->
     {% if c == 10 %}
     <div class="bg-light row" style="position: relative;"><br>
