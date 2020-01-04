@@ -354,7 +354,7 @@
 <script>
 overs=parseFloat($("#overs1").text());if((overs)%10==6){overs=overs+4}else{overs=overs+1};$("#overs1").text(overs/10);
 overs=parseFloat($("#overs2").text());if((overs)%10==6){overs=overs+4}else{overs=overs+1};$("#overs2").text(overs/10);
-
+ $(".tr").attr("diabled","true")
  a=$("input[name='csrfmiddlewaretoken']").val();
  $('#c_button').hide();
  $(".loader").hide();
@@ -386,7 +386,7 @@ overs=parseFloat($("#overs2").text());if((overs)%10==6){overs=overs+4}else{overs
  $("#main").on("click",function(){
      
      if ($("#main").html() == "START GAME") {
-        $(".tr").removeAttr("disabled");
+        
         $.ajax({
                 data: {'csrfmiddlewaretoken':a,
                        'type': "start",
@@ -409,11 +409,11 @@ overs=parseFloat($("#overs2").text());if((overs)%10==6){overs=overs+4}else{overs
  
  if($("#live_status").html()== 'True'){
     $(".tr").removeAttr("disabled");
-    $(".tr").removeAttr("disabled"); 
-     $("#main").text("END GAME")
-     $("#timer").text(Math.floor(starts/ 60)+":"+Math.floor(starts % 60))
-     $('#c_button').show();
-     $('#c_button').html("RESUME")
+    
+    $("#main").text("END GAME")
+    $("#timer").text(Math.floor(starts/ 60)+":"+Math.floor(starts % 60))
+    $('#c_button').show();
+    $('#c_button').html("RESUME")
 
 
  }
