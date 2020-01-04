@@ -420,7 +420,7 @@ overs=parseFloat($("#overs2").text());if((overs)%10==6){overs=overs+4}else{overs
 
  $(".tr").on("click",function(){
     
-    $(".tr").attr("disabled","true");
+    $(".tr").diabled=true;
     var team= parseInt(parseInt(this.id)/10)
     var type= parseInt(parseInt(this.id)%10)
     var val = $("#runs_data"+team).val();
