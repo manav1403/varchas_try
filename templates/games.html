@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="bg-primary text-center" style="padding: 10px;"><h3>VARCHAS ADMIN PORTAL</h3></div>
- <div class="container"><br>
+<div class="container"><br>
     <div class="bg-light" style="position: relative;"><br>
      <div class="text-center"><h4>GAME LIVE DATA EDIT</h4></div><br>
      
@@ -31,48 +31,71 @@
          <br><br><br><br>
          
          <div style="position: relative; width: 100%;">
-         <button id="main" style="position: relative;left: 20%;" data-toggle="modal" data-target="#exampleModal">START GAME</button>
+         <button id="main" style="position: relative;left: 20%;" data-toggle="modal" data-target="#exampleModal")>START GAME</button>
          <h2 id ="timer"style="position: relative;left: 36%;display: inline;background:palegoldenrod; padding: 5px;">00:00</h2>
          <button id="c_button" style="position: relative;left: 60%;">RESUME</button>
          </div><br>
     </div>
     <br><br>
     <!--endgamee modal-->
-    {% if game.live_status == 'True' %}
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"></div>
+      <div class="modal1" style="visibility:hidden;position: absolute;">
         <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <form action ="/login/vol/game" method ="POST">
-                  <input type="hidden" value="end" name='type'>
-                  <input type="hidden" value="{{game.game_id}}" name='id'>
-                  {% csrf_token %}
-                  <h5>
-                      SELECT THE WINNER&nbsp;&nbsp;
-                      <select name="winner">
-                      <option>{{game.team1}}</option>
-                      <option>{{game.team2}}</option>
-                  </select></h5><BR>
-              ending&nbsp;comments::&nbsp;<input name="comments" value=" "><br><br>
-              <small class="text-alert">*before ending make sure that all scores are correct<br>
-                **for any problem contact admin</small>
-            </div>
-            <div class="modal-footer">
-                
-              <button type="button" class="btn-secondary btn" data-dismiss="modal">CLOSE</button>
-              <input type="submit" class="btn-primary btn" value ="SURE END">
-            </div>
-        </form>
-          </div>
-        </div>
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">END GAME</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+            <form action ="/login/vol/game" method ="POST">
+                    <input type="hidden" value="end" name='type'>
+                    <input type="hidden" value="{{game.game_id}}" name='id'>
+                    {% csrf_token %}
+                    <h5>
+                        SELECT THE WINNER&nbsp;&nbsp;
+                        <select name="winner">
+                        <option>{{game.team1}}</option>
+                        <option>{{game.team2}}</option>
+                    </select></h5><BR>
+                ending&nbsp;comments::&nbsp;<input name="comments" value=" "><br><br>
+                <small class="text-alert">*before ending make sure that all scores are correct<br>
+                  **for any problem contact admin</small>
+              </div>
+              <div class="modal-footer">
+                  
+                <button type="button" class="btn-secondary btn" data-dismiss="modal">CLOSE</button>
+                <input type="submit" class="btn-primary btn" value ="SURE END">
+              </div>
+          </form>
+            </div> 
+      </div>//con
+      </div>//di
+      
+      
+      <div class="modal2" style="visibility:hidden;position: absolute;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">START GAME</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                  <h6>*game is live edit score carefully<br>
+                       **you undo the last change by clicking undo<br>
+                    ***the commentry will be visible live<br>
+                **** for any help contact admin</h6>
+                </div>
+                </div>
+                </div>
       </div>
-      {%endif%}
+
+    
+    
     <!--GAME CRICKET-->
     {% if c == 10 %}
     <div class="bg-light row" style="position: relative;"><br>
@@ -279,7 +302,7 @@
              <br><button class="btn btn-primary tr" id = "11">ADD</button>
           &nbsp;&nbsp;
           <button  class="btn btn-primary tr"id="12">UNDO</button><br><br>
-          <button  class="btn btn-primary tr"id="n_set">NEXT SET</button><br>
+          <button  class="btn btn-primary tr"id="33">NEXT SET</button><br>
           <span id="loader_b1" class="loader">
             <div class="spinner-border spinner-grow-sm" role="status">
                 <span class="sr-only">Loading...</span>
@@ -349,8 +372,7 @@
 </html>
 <script src="{% static 'vendor\jquery\jquery-3.2.1.min.js'%}"></script>
 {% csrf_token %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
 <script>
 overs=parseFloat($("#overs1").text());if((overs)%10==6){overs=overs+4}else{overs=overs+1};$("#overs1").text(overs/10);
 overs=parseFloat($("#overs2").text());if((overs)%10==6){overs=overs+4}else{overs=overs+1};$("#overs2").text(overs/10);
@@ -358,7 +380,8 @@ overs=parseFloat($("#overs2").text());if((overs)%10==6){overs=overs+4}else{overs
  a=$("input[name='csrfmiddlewaretoken']").val();
  $('#c_button').hide();
  $(".loader").hide();
- 
+ modal=$(".modal").html();
+ $(".modal").html(" ");
  starts = parseInt($("#ac_start_time").html());
      var Clock = {
     totalSeconds: starts,
@@ -400,7 +423,10 @@ overs=parseFloat($("#overs2").text());if((overs)%10==6){overs=overs+4}else{overs
      Clock.start();
      $('#c_button').html("PAUSE");
      $('#c_button').show();
+     $(".modal").html($(".modal2").html());
      }
+
+     else if($("#main").html() == "END GAME") {$(".modal").html($(".modal1").html());}
  });
  $('#c_button').click(function () { 
     if($('#c_button').html()=="PAUSE"){Clock.pause();$('#c_button').html("RESUME")}
@@ -462,3 +488,7 @@ overs=parseFloat($("#overs2").text());if((overs)%10==6){overs=overs+4}else{overs
  });
 
 </script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
