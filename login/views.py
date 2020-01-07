@@ -56,7 +56,7 @@ def update(request):#for cricket and basketball(10 and 11)
              a=ch.team1_score
              b=ch.overs_1
             if(p['team']=='2'):
-             team2_score=ch.team1_score.split('/')
+             team2_score=ch.team2_score.split('/')
              ch.team2_score=str(int(p['value'])+int(team2_score[0]))
              if(int(p['id'])//10000==10):
                 wkt=str(int(team2_score[1])+int(p['wicket']))
